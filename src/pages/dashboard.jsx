@@ -19,9 +19,11 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import ModalAddItem from "../components/modalAddItem";
 import ModalUpdateItem from "../components/modalUpdateItem";
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
   const { userName, contactsByUser, contactsRemove } = useContext(ContactContext);
+  const router = useRouter();
   const arrayContacts = contactsByUser
   if (!arrayContacts) {
     return (
@@ -31,6 +33,11 @@ const Dashboard = () => {
       </Center>
     );
   }
+
+  if (!tokenAcess) {
+    router.push("/");
+  }
+  
   const handleDeleteContact =(id)=>{
     contactsRemove(id)
   }

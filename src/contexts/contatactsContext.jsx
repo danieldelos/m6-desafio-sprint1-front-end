@@ -12,6 +12,7 @@ export const ContactProvider = ({ children }) => {
   const router = useRouter();
   const [contactsByUser, setContactsByUser] = useState([]);
   const [userName, setUserName] = useState([]);
+  const [tokenAcess, setTokenAcess] = useState([true]);
   useEffect(() => {
     const cookie = nookies.get();
     const token = cookie["kenzie.token"];
@@ -35,6 +36,7 @@ export const ContactProvider = ({ children }) => {
       };
       allContacts();
     }
+    setTokenAcess(token);
   }, []);
 
   const contactsCreate = async (formData) => {
@@ -121,6 +123,7 @@ export const ContactProvider = ({ children }) => {
   return (
     <ContactContext.Provider
       value={{
+        tokenAcess,
         userName,
         contactsByUser,
         contactsCreate,

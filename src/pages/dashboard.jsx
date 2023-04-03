@@ -33,10 +33,6 @@ const Dashboard = () => {
       </Center>
     );
   }
-
-  if (!tokenAcess) {
-    router.push("/");
-  }
   
   const handleDeleteContact =(id)=>{
     contactsRemove(id)

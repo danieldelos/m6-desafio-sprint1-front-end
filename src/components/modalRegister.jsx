@@ -38,7 +38,9 @@ const registerSchema = yup.object({
     confirmPassword: yup
         .string()
         .oneOf([yup.ref("password")], "Confimação de senha deve ser igual a senha"),
-      phone: yup.string().required("O contato é obrigatório!")
+      phone: yup
+        .string().required("O contato é obrigatório!")
+        .matches(/^\(?\d{2}\)?[- ]?\d{4,5}[- ]?\d{4}$/, "Número de telefone inválido")
 })
 
   const ModalRegister = () => {
@@ -80,7 +82,7 @@ const registerSchema = yup.object({
                     <FormHelperText>{errors.confirmPassword?.message}</FormHelperText>
 
                     <FormLabel>Telefone</FormLabel>
-                    <Input required type="text" {...register('phone')} placeholder='Telefone do usuário'/>
+                    <Input required type="text" {...register('phone')} placeholder='(00) 00000-0000'/>
                     {errors.phone && (<FormErrorMessage variant="default" >{errors.phone.message}</FormErrorMessage>)}
                     <FormHelperText>{errors.phone?.message}</FormHelperText>
 

@@ -11,7 +11,9 @@ export const ContactContext = createContext({});
 export const ContactProvider = ({ children }) => {
   const router = useRouter();
   const [contactsByUser, setContactsByUser] = useState([]);
+  const [userLoged, setUserLoged] = useState([]);
   const [userName, setUserName] = useState([]);
+  const [userLogged, setUserLogged] = useState([]);
   const [tokenAcess, setTokenAcess] = useState([true]);
   useEffect(() => {
     const cookie = nookies.get();
@@ -30,6 +32,7 @@ export const ContactProvider = ({ children }) => {
           );
           setUserName(response.data.name);
           setContactsByUser(response.data.contacts);
+          setUserLogged(response.data)
         } catch (error) {
           console.log(error);
         }
@@ -120,15 +123,49 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
+
+  const userUpdate = async (formData) => {
+    const cookie = nookies.get();
+    const token = cookie["kenzie.token"];
+    const decodedToken = jwtDecode(token)
+    try {
+      const cookie = nookies.get();
+      const token = cookie["kenzie.token"];
+      const response = await api.patch(`/users/${decodedToken.sub}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+    
+      const newName = formData.name
+      if (newName != undefined) {
+        setUserName(newName)
+      } 
+     
+    
+      toast.success("Perfil atualizado com sucesso!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Ocorreu um erro ao atualizad o Perfil.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  };
+
   return (
     <ContactContext.Provider
       value={{
         tokenAcess,
         userName,
         contactsByUser,
+        userLogged,
         contactsCreate,
         contactsRemove,
         userCreate,
+        userUpdate,
         contactUpdate
       }}
     >

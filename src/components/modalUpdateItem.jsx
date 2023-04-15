@@ -30,7 +30,7 @@ const updateItemSchema = yup.object({
   contactPhone: yup
       .string()
       .required("O Telefone é obrigatório!")
-      .matches(/.{10,}/, "Deve conter no mínimo 10 digitos")
+      .matches(/^\(?\d{2}\)?[- ]?\d{4,5}[- ]?\d{4}$/, "Número de telefone inválido")
 })
 
 

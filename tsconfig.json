@@ -18,6 +18,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/contexts/contatactsContext.jsx", "src/pages/dashboard2.jsx", "src/components/header.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/contexts/contatactsContext.jsx",
+    "src/pages/dashboard2.jsx",
+    "src/components/header.jsx"
+  ],
   "exclude": ["node_modules"]
 }
